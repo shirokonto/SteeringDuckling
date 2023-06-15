@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d31i6fn2y4ywa"]
 
-[ext_resource type="PackedScene" uid="uid://cpvmkigoocxo4" path="res://scenes/duckling.tscn" id="1_bejy6"]
+[ext_resource type="PackedScene" uid="uid://cpvmkigoocxo4" path="res://scenes/Duckling.tscn" id="1_bejy6"]
 
 [node name="Main" type="Node2D"]
 
