@@ -31,6 +31,7 @@ func _physics_process(delta):
 			)
 	elif global_position.distance_to(coursor_position) < IDLE_THRESHOLD_DISTANCE:
 		print("IDLE")
+		sprite.play("idle")
 		return
 	else:
 		_velocity = Steering.follow(
@@ -45,10 +46,6 @@ func _physics_process(delta):
 	velocity = _velocity * delta
 	if velocity.length() > 1:
 		sprite.play("walking")
-	elif velocity.length() < 1:
-		# print("it should have stopped >:(")
-		sprite.stop()
-		sprite.animation = "idle"
-	
+
 	move_and_slide()
 	sprite.rotation = _velocity.angle() + (0.5 * PI)
