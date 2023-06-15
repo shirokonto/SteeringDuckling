@@ -35,7 +35,7 @@ static func wander(
 		max_speed: = DEFAULT_MAX_SPEED,
 		mass: = DEFAULT_MASS
 	) -> Vector2:
-	var wander_point = velocity.normalized() * 100 + global_position 
+	var wander_point = velocity.normalized() * 1000 + global_position 
 	var theta = wander_theta + velocity.angle()
 	var x = wander_radius * cos(wander_theta)
 	var y = wander_radius * sin(wander_theta)

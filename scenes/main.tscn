@@ -5,3 +5,4 @@
 [node name="Main" type="Node2D"]
 
 [node name="Duckling" parent="." instance=ExtResource("1_bejy6")]
+position = Vector2(496, 273)
