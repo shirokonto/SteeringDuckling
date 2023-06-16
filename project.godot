@@ -21,4 +21,5 @@ Steering="*res://src/autoload/Steering.gd"
 
 [rendering]
 
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.27451, 0.380392, 0.203922, 1)

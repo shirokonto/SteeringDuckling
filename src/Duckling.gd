@@ -18,6 +18,15 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if global_position.x < 0:
+		global_position.x = screen_size.x
+	if global_position.x > screen_size.x:
+		global_position.x = 0
+		
+	if global_position.y < 0: 
+		global_position.y = screen_size.y
+	if global_position.y > screen_size.y:
+		global_position.y = 0
 	var coursor_position: Vector2 = get_viewport().get_mouse_position()
 	
 	if global_position.distance_to(coursor_position) > WANDER_THRESHOLD_DISTANCE:
@@ -30,7 +39,6 @@ func _physics_process(delta):
 			max_speed,
 			)
 	elif global_position.distance_to(coursor_position) < IDLE_THRESHOLD_DISTANCE:
-		print("IDLE")
 		sprite.play("idle")
 		return
 	else:
