@@ -1,8 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://d31i6fn2y4ywa"]
+[gd_scene load_steps=5 format=3 uid="uid://d31i6fn2y4ywa"]
 
-[ext_resource type="PackedScene" uid="uid://cpvmkigoocxo4" path="res://scenes/Duckling.tscn" id="1_bejy6"]
+[ext_resource type="PackedScene" uid="uid://cpvmkigoocxo4" path="res://scenes/duckling.tscn" id="1_bejy6"]
+[ext_resource type="Script" path="res://src/Main.gd" id="1_uvi7l"]
+[ext_resource type="PackedScene" uid="uid://c5nuw5hpg1kdv" path="res://scenes/raptor.tscn" id="2_on2ut"]
+
+[sub_resource type="Curve2D" id="Curve2D_4bpuu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1152, 0, 0, 0, 0, 0, 1152, 648, 0, 0, 0, 0, 0, 648, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_uvi7l")
+raptor_scene = ExtResource("2_on2ut")
 
 [node name="Duckling" parent="." instance=ExtResource("1_bejy6")]
 position = Vector2(496, 273)
+
+[node name="RaptorTimer" type="Timer" parent="."]
+wait_time = 8.0
+
+[node name="RaptorPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_4bpuu")
+
+[node name="RaptorSpawnLocation" type="PathFollow2D" parent="RaptorPath"]
+
+[connection signal="timeout" from="RaptorTimer" to="." method="_on_raptor_timer_timeout"]

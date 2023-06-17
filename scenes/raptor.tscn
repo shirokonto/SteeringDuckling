@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5nuw5hpg1kdv"]
+
+[ext_resource type="Script" path="res://src/Raptor.gd" id="1_580sf"]
+[ext_resource type="Texture2D" uid="uid://baf8caqrb8a7d" path="res://art/enemyFlyingAlt_1.png" id="3_6trh6"]
+[ext_resource type="Texture2D" uid="uid://cjan77kh35bh5" path="res://art/enemyFlyingAlt_2.png" id="4_bvnwu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_08xpw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6trh6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_bvnwu")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hnk32"]
+
+[node name="Raptor" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_580sf")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_08xpw")
+animation = &"fly"
+frame_progress = 0.841901
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visibility_layer = 0
+shape = SubResource("RectangleShape2D_hnk32")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

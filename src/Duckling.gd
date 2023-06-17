@@ -11,6 +11,7 @@ var wander_theta: = -PI / 2;
 
 const IDLE_THRESHOLD_DISTANCE: = 3.0
 const WANDER_THRESHOLD_DISTANCE: = 500.0
+const FLEE_THRESHOLD_DISTANCE: = 3.0
 
 func _ready():
 	screen_size = get_viewport_rect().size 
@@ -18,38 +19,44 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if global_position.x < 0:
-		global_position.x = screen_size.x
-	if global_position.x > screen_size.x:
-		global_position.x = 0
-		
-	if global_position.y < 0: 
-		global_position.y = screen_size.y
-	if global_position.y > screen_size.y:
-		global_position.y = 0
-	var coursor_position: Vector2 = get_viewport().get_mouse_position()
+	position.x = clamp(position.x, 0, screen_size.x)
+	position.y = clamp(position.y, 0, screen_size.y)
 	
-	if global_position.distance_to(coursor_position) > WANDER_THRESHOLD_DISTANCE:
+		
+	var cursor_position: Vector2 = get_viewport().get_mouse_position()
+	#var raptor_position: Vector2 = raptor
+	
+	
+	#if position.distance_to(raptor_position) < FLEE_THRESHOLD_DISTANCE:
+	#	_velocity = Steering.flee(
+	#		_velocity,
+	#		position,
+	#		raptor_position,
+	#		max_speed,
+	#		20.0
+	#	)		
+	if position.distance_to(cursor_position) > WANDER_THRESHOLD_DISTANCE:
 		wander_theta += randf_range(-wander_offset_range,wander_offset_range)
 		_velocity = Steering.wander(
 			_velocity,
-			global_position,
+			position,
 			50.0,		# wander radius
 			wander_theta,
 			max_speed,
 			)
-	elif global_position.distance_to(coursor_position) < IDLE_THRESHOLD_DISTANCE:
+	elif position.distance_to(cursor_position) < IDLE_THRESHOLD_DISTANCE:
+		
+		# TODO wander around cursor
 		sprite.play("idle")
 		return
 	else:
 		_velocity = Steering.follow(
 			_velocity,
-			global_position,
-			coursor_position,
+			position,
+			cursor_position,
 			max_speed,
 			20.0
 		)
-		
 	
 	velocity = _velocity * delta
 	if velocity.length() > 1:
