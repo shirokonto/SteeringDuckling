@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpvmkigoocxo4"]
+[gd_scene load_steps=7 format=3 uid="uid://cpvmkigoocxo4"]
 
 [ext_resource type="Script" path="res://src/Duckling.gd" id="1_67ehq"]
 [ext_resource type="Texture2D" uid="uid://pxhok7helcgv" path="res://art/idle.svg" id="1_iccsh"]
@@ -27,6 +27,8 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_4xdrs"]
+
 [node name="Duckling" type="CharacterBody2D"]
 script = ExtResource("1_67ehq")
 
@@ -37,4 +39,12 @@ animation = &"idle"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(6.24667, 0.0367697)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(3.2017, 543.926)
+shape = SubResource("CircleShape2D_4xdrs")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

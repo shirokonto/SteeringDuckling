@@ -13,7 +13,7 @@ func _process(delta):
 	pass
 
 
-func _on_raptor_timer_timeout():
+func _on_predator_timer_timeout():
 	var predator = predator_scene.instantiate()
 	
 	var predator_spawn_location = get_node("PredatorPath/PredatorSpawnLocation")
@@ -26,9 +26,7 @@ func _on_raptor_timer_timeout():
 	direction += randf_range(-PI / 4, PI / 4)
 	predator.rotation = direction
 
-	var velocity = Vector2(randf_range(150.0, 250.0), 0.0)
+	var velocity = Vector2(randf_range(90.0, 100.0), 0.0)
 	predator.linear_velocity = velocity.rotated(direction)
 
 	add_child(predator)
-
-	
