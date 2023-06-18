@@ -21,8 +21,15 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	if global_position.x < 0:
+		global_position.x = screen_size.x
+	if global_position.x > screen_size.x:
+		global_position.x = 0
+
+	if global_position.y < 0: 
+		global_position.y = screen_size.y
+	if global_position.y > screen_size.y:
+		global_position.y = 0
 	
 		
 	var cursor_position: Vector2 = get_viewport().get_mouse_position()
@@ -35,7 +42,7 @@ func _physics_process(delta):
 			20000.0,
 			20.0
 		)
-		# add 
+		
 	else:
 		if position.distance_to(cursor_position) > WANDER_THRESHOLD_DISTANCE:
 			wander_theta += randf_range(-wander_offset_range,wander_offset_range)
